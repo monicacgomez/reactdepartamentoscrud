@@ -8,7 +8,22 @@ export default class ServiceDepartamentos {
             let request = "api/departamentos";
             axios.get(url + request).then((response) => {
                 console.log("Leyendo departamentos");
-                resolve(response.data);
+                resolve(response.data)
+            })
+        })
+    }
+
+    insertDepartamento(departamento){
+        return new Promise(function(resolve, reject) {
+            let url = Global.urlApiDepartamentos;
+            let request = "api/departamentos";
+            axios.post(url + request, departamento)
+            .then((response) => {
+                console.log ("insertando departamento");
+                resolve(response);
+            }).catch((error)  => {
+                console.log("Error insertando " + error);
+                reject(error);
             })
         })
     }
