@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import loading from './../assets/images/loading.gif';
 import ServiceDepartamentos from '../services/ServiceDepartamentos';
+import { NavLink } from 'react-router-dom'
 
 export default class HomeComponent extends Component {
     service = new ServiceDepartamentos();
@@ -39,6 +40,15 @@ export default class HomeComponent extends Component {
                                 return (<tr key={index}>
                                     <td>{dept.nombre}</td>
                                     <td>{dept.localidad}</td>
+                                    <td>
+                                        <NavLink className="btn btn-info"
+                                        to={"/update/" + dept.numero
+                                            + "/" + dept.nombre
+                                            + "/" + dept.localidad
+                                        }>
+                                            Edit
+                                        </NavLink>
+                                    </td>
                                 </tr>)
                             })
                         }
