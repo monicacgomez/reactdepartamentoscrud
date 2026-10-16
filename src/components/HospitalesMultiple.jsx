@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import ServiceHospitales from '../services/ServiceHospitales';
+import TrabajadoresComponent from './TrabajadoresComponent';
 
 export default class HospitalesMultiple extends Component {
     service = new ServiceHospitales();
     selectHospital = React.createRef();
 
     state = {
-        hospitales: []
+        hospitales: [],
+        hospitalesSeleccionados: []
     }
 
     loadHospitales = async () => {
@@ -23,7 +25,17 @@ export default class HospitalesMultiple extends Component {
 
     getHospitalesSeleccionados = (event) => {
         event.preventDefault();
-        console.log("Ok");
+        let aux = []
+        let options = this.selectHospital.current.options;
+        for (let option of options) {
+            if (option.selected) {
+                aux.push(option.value);
+            }
+        }
+        console.log(aux);
+        this.setState({
+            hospitalesSeleccionados: aux
+        })
     }
 
   render() {
@@ -42,13 +54,17 @@ export default class HospitalesMultiple extends Component {
                         </option>)
                     })
                 }
-                
+
             </select>
             <button onClick={this.getHospitalesSeleccionados}
             className='btn btn-info'>
                 Mostrar trabajadores
             </button>
         </form>
+        {
+            this.state.hospitalesSeleccionados.length !=0 &&
+            (<TrabajadoresComponent idhospitales={this.state.hospitalesSeleccionados}/>)
+        }
       </div>
     )
   }
